@@ -3,6 +3,7 @@ package jokanghyeon.inhatc.projectcodehorizon;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -69,14 +70,7 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
                 @Override
                 public void onComplete(@NonNull Task<AuthResult> task) {
                     if(task.isSuccessful()) {
-                        FirebaseDatabase fb = FirebaseDatabase.getInstance();
-
-                        DatabaseReference userRef= fb.getReference().child("users").child(auth.getUid());
-
-                        userRef.child("TimeLeft").setValue(24);
-                        userRef.child("LastConnected").setValue(Calendar.getInstance().getTime());
-                        userRef.child("Nickname").setValue(editNickname.getText().toString());
-
+                        Utility.getInstance().AccountInit(editNickname.getText().toString(), getDrawable(R.drawable.basecamp));
                         Toast.makeText(getBaseContext(), "Finish", Toast.LENGTH_LONG).show();
                         finish();
                     }else{
