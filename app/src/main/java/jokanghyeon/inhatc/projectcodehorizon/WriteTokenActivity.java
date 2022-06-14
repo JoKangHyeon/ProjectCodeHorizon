@@ -100,6 +100,11 @@ public class WriteTokenActivity extends AppCompatActivity implements View.OnClic
         }else if(view==btnCancel){
             finish();
         }else if(view==btnFinish){
+            if(editHour.getText().length()==0){
+                tvError.setText("사용할 시간을 입력해 주세요.");
+                return;
+            }
+
             mDB.getReference().child("users").child(mAuth.getUid()).child("private").child("TimeLeft").get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
                 @Override
                 public void onComplete(@NonNull Task<DataSnapshot> task) {
@@ -109,6 +114,7 @@ public class WriteTokenActivity extends AppCompatActivity implements View.OnClic
 
                         if(timeUse==0){
                             tvError.setText("시간을 0으로 설정할 수 없습니다.");
+                            return;
                         }
 
                         if(timeUse>timeHave){
