@@ -66,6 +66,11 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
                 return;
             }
 
+            if(editNickname.getText().toString().length()<=1){
+                tvError.setText("닉네임이 너무 짧습니다.\n2자 이상으로 입력해주세요");
+                return;
+            }
+
             auth.createUserWithEmailAndPassword(editId.getText().toString(),editPass.getText().toString()).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                 @Override
                 public void onComplete(@NonNull Task<AuthResult> task) {
